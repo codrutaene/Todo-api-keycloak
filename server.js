@@ -21,10 +21,6 @@ var todoNextId = 1;
 
 app.use(bodyParser.json());
 
-// app.get('/test', keycloak.protect(), function(req, res){ 
-// 	res.send('todo TEST');
-// });
-
 app.get('/', function(req, res) {
 	res.send('todo API root');
 });
@@ -60,15 +56,7 @@ app.get('/todos', async function(req, res) {
 		res.json(todos);
 	} catch (e){
 		res.status(500).send();
-	}	
-	
-	// db.todo.findAll({
-	// 	where: where
-	// }).then(function(todos) {
-	// 	res.json(todos);
-	// }, function(e) {
-	// 	res.status(500).send();
-	// });
+	}		
 });
 
 // GET /todos/:id
@@ -91,22 +79,7 @@ app.get('/todos/:id', keycloak.protect(), async function(req, res) {
 
 	} catch (e) {
 		res.status(500).send();
-	}	
-
-	// db.todo.findOne({
-	// 	where : {
-	// 		id: todoId,
-	// 		useremail: req.kauth.grant.access_token.content.email
-	// 	}
-	// }).then(function(todo) {
-	// 	if (!!todo) {
-	// 		res.json(todo.toJSON());
-	// 	} else {
-	// 		res.status(404).send();
-	// 	}
-	// }, function(e) {
-	// 	res.status(500).send();
-	// });
+	}
 });
 
 // POST /todos
@@ -120,12 +93,6 @@ app.post('/todos', keycloak.protect(), async function(req, res) {
 	} catch (e) {
 		res.status(400).json(e);
 	}
-		
-	// db.todo.create(body).then(function(todo) {
-	// 	res.json(todo.toJSON());res.json(todo.toJSON());
-	// }, function(e) {
-	// 	res.status(400).json(e);
-	// });
 });
 
 // DELETE /todos/:id
@@ -149,23 +116,6 @@ app.delete('/todos/:id', keycloak.protect(),async function(req, res) {
 	} catch (e) {
 		res.status(500).send();
 	}
-	
-	// db.todo.destroy({
-	// 	where: {
-	// 		id: todoId,
-	// 		useremail: req.kauth.grant.access_token.content.email
-	// 	}
-	// }).then(function(rowsDeleted) {
-	// 	if (rowsDeleted === 0) {
-	// 		res.status(404).json({
-	// 			error: 'No todo with id'
-	// 		});
-	// 	} else {
-	// 		res.status(204).send();
-	// 	}
-	// }, function() {
-	// 	res.status(500).send();
-	// });
 });
 
 // PUT /todos/:id
@@ -181,10 +131,6 @@ app.put('/todos/:id', keycloak.protect(), async function(req, res) {
 	if (body.hasOwnProperty('description')) {
 		attributes.description = body.description;
 	}
-
-	// if (body.hasOwnProperty('useremail')) {
-	// 	attributes.useremail = body.useremail;
-	// }
 
 	try {
 		let todo = await db.todo.findOne({
@@ -206,25 +152,6 @@ app.put('/todos/:id', keycloak.protect(), async function(req, res) {
 	} catch (e) {
 		res.status(500).json(e);
 	}
-	
-	// db.todo.findOne({
-	// 	where: {
-	// 		id: todoId,
-	// 		useremail: req.kauth.grant.access_token.content.email
-	// 	}
-	// }).then(function(todo) {
-	// 	if (todo) {
-	// 		todo.update(attributes).then(function(todo) {
-	// 			res.json(todo.toJSON());
-	// 		}, function(e) {
-	// 			res.status(400).json(e);
-	// 		});
-	// 	} else {
-	// 		res.status(404).send();
-	// 	}
-	// }, function() {
-	// 	res.status(500).send();
-	// });
 });
 
 //{force: true}
