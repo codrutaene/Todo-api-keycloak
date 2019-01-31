@@ -11,6 +11,13 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.BOOLEAN,
 			allowNull: false,
 			defaultValue: false
+		},
+		useremail: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			validate: {
+				len: [1, 250]
+			}
 		}
 	});
 };
